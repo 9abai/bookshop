@@ -1,0 +1,7 @@
+{% for c in cats %}
+    {% if c.pk == cat_selected %}
+        <p style="font-size: 20px">{{ c.title }}</p>
+    {% else %}
+        <a style="font-size: 20px" href="{{ c.get_absolute_url }}">{{ c.title }}</a>
+    {% endif %}
+{% endfor %}

@@ -1,0 +1,158 @@
+{% extends 'mainpage/index.html' %}
+{% load static %}
+
+{% block content %}
+{% include "mainpage/header.html" %}
+            <section class="popular">
+                <div class="popular__container">
+                    <div class="popular__row">
+                        <div class="popular__leftside">
+                            <div class="popular__subtitle subtitle">
+                                <h2>Hot Sales</h2>
+                            </div>
+                             <div class="popular__title title">
+                                 <p>POPULAR NOVEL FROM Manith J.</p>
+                             </div>
+                             <div class="popular__btn btn">
+                                 <a href="#">View more</a>
+                             </div>
+                        </div>
+                        <div class="popular__rightside">
+                            <div class="popular__img">
+                                <img src="{% static 'mainpage/img/popular-img.png' %}" alt="image">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="rowling">
+                <div class="rowling__container">
+                    <div class="rowling__row">
+                        <div class="rowling__leftside">
+                            <div class="leftside__row">
+                                <div class="rowling__leftside_img">
+                                    <img src="{% static 'mainpage/img/rowling-img.png' %}" alt="">
+                                </div>
+                                <div class="rowling__leftside_content">
+                                    <div class="rowling__leftside_subtitle subtitle">
+                                        <h2>Event</h2>
+                                    </div>
+                                    <div class="rowling__leftside_title title">
+                                        <p>JK. Rowling signing event on book Harry Potter series with Fantastic beast poster</p>
+                                    </div>
+                                    <div class="rowling__leftside_btn btn">
+                                        <a href="#">View more</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="rowling__rightside">
+                            <div class="rowling__rightside_content">
+                                <div class="content__element">
+                                <img src="{% static 'mainpage/img/rowling-img2.png' %}" alt="">
+                                </div>
+                                <div class="content__element">
+                                <p>Book Collections</p>
+                                </div>
+                                <div class="content__element">
+                                <img src="{% static 'mainpage/img/rowling-img3.png' %}" alt="">
+                                </div>
+                                <div class="content__element">
+                                <img src="{% static 'mainpage/img/rowling-img4.png' %}" alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="popular-books">
+                <div class="popular-books__container">
+                    <div class="popular-books__subtitle subtitle">
+                        <h2>Популярное</h2>
+                    </div>
+                    <div class="featured__line"></div>
+                    <div class="featured__row">
+                        {% for p in product %}
+                        <div class="my_card">
+                            <a href="{{ p.get_absolute_url }}">
+                                {% if p.img %}
+                                <div class="my_card__img">
+                                    <img src="{{ p.img.url }}" alt="image book">
+                                </div>
+                                {% endif %}
+                                <div class="my_card__name">
+                                    <p>{{ p.title | truncatewords:3 }}</p>
+                                </div>
+                                <div class="my_card__rating">
+                                    <img src="{% static 'mainpage/img/icon/Stars.svg' %}" alt="">
+                                    <p>4.3</p>
+                                </div>
+                                <div class="my_card__price">
+                                    <p>KGZ {{ p.cost }}</p>
+                                </div>
+                            </a>
+                            <div class="my_card__btn">
+                                <form action="{% url 'cart' %}" method="post" style="display: flex;">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="p_id" value="{{ p.id }}">
+                                    <label>
+                                        <input type="number" name="qty" value="1">
+                                    </label>
+                                    <button type="submit" class="header__icon">
+                                        <img src="{% static 'mainpage/img/icon/ShoppingCartSimple.svg' %}" alt="" style="padding: 6px;">
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <a href="{% url 'product_list' %}" class="btn__seeall seeall">See All</a>
+                </div>
+            </section>
+            <section class="popular-books">
+                <div class="popular-books__container">
+                    <div class="popular-books__subtitle subtitle">
+                        <h2>Новинки</h2>
+                    </div>
+                    <div class="featured__line"></div>
+                    <div class="featured__row">
+                        {% for p in product %}
+                        <div class="my_card">
+                            <a href="{{ p.get_absolute_url }}">
+                                {% if p.img %}
+                                <div class="my_card__img">
+                                    <img src="{{ p.img.url }}" alt="image book">
+                                </div>
+                                {% endif %}
+                                <div class="my_card__name">
+                                    <p>{{ p.title | truncatewords:3 }}</p>
+                                </div>
+                                <div class="my_card__rating">
+                                    <img src="{% static 'mainpage/img/icon/Stars.svg' %}" alt="">
+                                    <p>4.3</p>
+                                </div>
+                                <div class="my_card__price">
+                                    <p>KGZ {{ p.cost }}</p>
+                                </div>
+                            </a>
+                            <div class="my_card__btn">
+                                <form action="{% url 'cart' %}" method="post" style="display: flex;">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="p_id" value="{{ p.id }}">
+                                    <label>
+                                        <input type="number" name="qty" value="1">
+                                    </label>
+                                    <button type="submit" class="header__icon">
+                                        <img src="{% static 'mainpage/img/icon/ShoppingCartSimple.svg' %}" alt="" style="padding: 6px;">
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <a href="{% url 'product_list' %}" class="btn__seeall seeall">See All</a>
+                </div>
+            </section>
+{% include "mainpage/footer.html" %}
+
+{% endblock %}

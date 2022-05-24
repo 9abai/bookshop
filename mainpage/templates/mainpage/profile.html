@@ -1,0 +1,18 @@
+{% extends 'mainpage/index.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="header-bar">
+        <h1>Личный кабинет</h1>
+        
+        <a href="{% url 'mainpage' %}">&#8592; На главную</a>
+        
+    </div>
+    
+    <div class="card-body">
+      <img src="{{ profile.avatar.url }}" height=100 width=100><br><br>
+      <p><strong>Username:</strong> {{ profile.user.username }}</p><br><br>
+    
+    </div>
+
+{% endblock content %}

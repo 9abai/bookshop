@@ -1,0 +1,76 @@
+{% extends 'mainpage/index.html' %}
+{% load static %}
+
+
+{% block content %}
+{% include "mainpage/header.html" %}
+            <section class="featured">
+                <div class="featured__container">
+                    <div class="featured__row">
+                        {% for p in product %}
+                        <div class="my_card">
+                            <a href="{{ p.get_absolute_url }}">
+                                {% if p.img %}
+                                <div class="my_card__img">
+                                    <img src="{{ p.img.url }}" alt="image book">
+                                </div>
+                                {% endif %}
+                                <div class="my_card__name">
+                                    <p>{{ p.title | truncatewords:3 }}</p>
+                                </div>
+                                <div class="my_card__rating">
+                                    <img src="{% static 'mainpage/img/icon/Stars.svg' %}" alt="">
+                                    <p>4.3</p>
+                                </div>
+                                <div class="my_card__price">
+                                    <p>KGZ {{ p.cost }}</p>
+                                </div>
+                            </a>
+                            <div class="my_card__btn">
+                                <form action="{% url 'cart' %}" method="post" style="display: flex;">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="p_id" value="{{ p.id }}">
+                                    <label>
+                                        <input type="number" name="qty" value="1">
+                                    </label>
+                                    <button type="submit" class="header__icon">
+                                        <img src="{% static 'mainpage/img/icon/ShoppingCartSimple.svg' %}" alt="" style="padding: 6px;">
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    </div>
+                </div>
+            </section>
+            {% if page_obj.has_other_pages %}
+            <div class="pagination">
+                <ul class="paginator_row">
+                    {% if page_obj.has_previous %}
+                    <li class="page-link">
+                        <a href="?page={{ page_obj.previous_page_number }}">&lt;</a>
+                    </li>
+                    {% endif %}
+
+                    {% for p in paginator.page_range %}
+                    {% if page_obj.number == p %}
+                    <li class="page_link page_link_selected">{{ p }}</li>
+                    {% else %}
+                    <li class="page_link">
+                        <a href="?page={{ p }}">{{ p }}</a>
+                    </li>
+                    {% endif %}
+                    {% endfor %}
+                    {% if page_obj.has_next %}
+                    <li class="page-link">
+                        <a href="?page={{ page_obj.next_page_number }}">&gt;</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+            {% endif %}
+
+
+{% include "mainpage/footer.html" %}
+
+{% endblock %}
