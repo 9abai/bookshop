@@ -55,3 +55,23 @@ class RatingForm(forms.ModelForm):
     class Meta:
         model = Rating
         fields = ("star",)
+
+
+class UserEditForm(forms.ModelForm):
+    first_name = forms.CharField(label='', max_length=200, widget=forms.TextInput(
+        attrs={'class': 'form-control', 'placeholder': 'Имя'}))
+    last_name = forms.CharField(label='', max_length=200, widget=forms.TextInput(
+        attrs={'class': 'form-control', 'placeholder': 'Фамилия'}))
+    email = forms.CharField(widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Эл. адрес'}),
+                            required=False, label='')
+
+    class Meta:
+        model = User
+        fields = ('first_name', 'last_name', 'email')
+
+
+class ProfileEditForm(forms.ModelForm):
+
+    class Meta:
+        model = UserProfile
+        fields = ('date_of_birth', 'avatar')

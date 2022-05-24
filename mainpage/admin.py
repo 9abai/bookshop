@@ -24,7 +24,7 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(UserProfile)
 class UserProfileAdmin(admin.ModelAdmin):
-    list_display = ['user', 'description', 'avatar']
+    list_display = ['user', 'date_of_birth', 'avatar']
 
 
 @admin.register(RatingStar)

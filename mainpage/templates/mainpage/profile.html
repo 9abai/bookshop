@@ -2,17 +2,25 @@
 {% load static %}
 
 {% block content %}
-    <div class="header-bar">
-        <h1>Личный кабинет</h1>
-        
-        <a href="{% url 'mainpage' %}">&#8592; На главную</a>
-        
-    </div>
-    
-    <div class="card-body">
-      <img src="{{ profile.avatar.url }}" height=100 width=100><br><br>
-      <p><strong>Username:</strong> {{ profile.user.username }}</p><br><br>
-    
-    </div>
+{% include "mainpage/header.html" %}
 
-{% endblock content %}
+<div class="header-bar menu_item" style="margin: 12px;">
+    <h1 style="font-size: 27px; padding:12px;">Личный кабинет</h1>
+
+    <a href="{% url 'mainpage' %}" style="font-size: 23px; margin:12px;">&#8592; На главную</a>
+
+</div>
+
+<div class="card-body">
+    {% if profile.avatar %}
+        <img src="{{ profile.avatar.url }}" height=100 width=100><br><br>
+    {% endif %}
+    <p><strong>Username:</strong> {{ profile.user.username }}</p><br><br>
+    <p><strong>Имя:</strong> {{ profile.user.first_name }}</p><br><br>
+    <p><strong>Фамилия:</strong> {{ profile.user.last_name }}</p><br><br>
+    <p><strong>Email:</strong> {{ profile.user.email }}</p><br><br>
+
+    <a href="{% url 'edit_profile' %}">edit</a>
+</div>
+
+{% endblock %}

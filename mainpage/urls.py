@@ -14,6 +14,7 @@ urlpatterns = [
     path('logout/', views.log_out, name='log_out'),
     path('add-rating/', views.AddStarRating.as_view(), name='add_rating'),
     path('profile/', views.view_profile, name='profile'),
+    path('edit-profile/', views.edit_profile, name="edit_profile"),
     path('cart/', views.CartView.as_view(), name='cart'),
     path('clean-cart/', views.CleanCart.as_view(), name='clean_cart'),
 ]

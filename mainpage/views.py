@@ -6,7 +6,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views import View
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .forms import *
@@ -126,7 +126,7 @@ class RegisterUser(DataMixin, CreateView):
 
     def form_valid(self, form):
         user = form.save()
-        login(self.request, user)
+        login(self.request, user, backend='django.contrib.backends.ModelBackend')
         return redirect('mainpage')
 
 
@@ -144,12 +144,30 @@ class LoginUser(DataMixin, LoginView):
 
 
 def view_profile(request):
+    profile = UserProfile.objects.get_or_create(user=request.user)
     profile = get_object_or_404(UserProfile, user=request.user)
     context = {
         'profile': profile,
     }
 
     return render(request, 'mainpage/profile.html', context=context)
+
+
+@login_required
+def edit_profile(request):
+    if request.method == 'POST':
+        user_form = UserEditForm(instance=request.user, data=request.POST)
+        profile_form = ProfileEditForm()
+        if user_form.is_valid():
+            user_form.save()
+            # profile_form.save()
+            return redirect('profile')
+    else:
+        user_form = UserEditForm(instance=request.user)
+        profile_form = ProfileEditForm()
+        return render(request,
+                      'mainpage/edit_profile.html',
+                      {'user_form': user_form})
 
 
 def log_out(request):
