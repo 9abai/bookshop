@@ -28,7 +28,7 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1', 'ab-bookshop.herokuapp.com']
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -136,7 +136,7 @@ LOGOUT_REDIRECT_URL = '/'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = []
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -152,5 +152,3 @@ CACHES = {
         'LOCATION': os.path.join(BASE_DIR, 'bookshop_cache'),
     }
 }
-
-django_heroku.settings(locals())
