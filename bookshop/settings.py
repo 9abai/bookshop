@@ -26,9 +26,9 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '295329377471-6403ennrmla14s3af1bc1ri4jgh78ftl.a
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'ab-bookshop.herokuapp.com']
 
 # Application definition
 
